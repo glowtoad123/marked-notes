@@ -1,65 +1,70 @@
+import React, { useEffect, useState } from 'react'
+import { useUser } from '@auth0/nextjs-auth0'
 import Head from 'next/head'
+import Nav from '../components/nav'
 import styles from '../styles/Home.module.css'
+import Minicard from '../components/card'
 
 export default function Home() {
+
+  const {user, error, isLoading} = useUser()
+  const [cards, setCards] = useState()
+
+
+  async function getCards(id){
+    try {
+      const res = await fetch("/api/read", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({user: id})
+      })
+      let data = await res.json()
+      setCards(data)
+      console.log("data", data)
+    }
+    catch(error) {
+      console.log({error: error, user: user})
+    }
+  }
+
+  useEffect(() => {
+    user && getCards(user.name)
+    console.log('cards:', cards)
+  }, [user])
+
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>{error.message}</div>
+
+
+
+  /* console.log("emailSH", emailSH) */
+  
   return (
     <div className={styles.container}>
+      <Nav />
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        {user && <p>Welcome {user.name}! <a style={{color: 'blue'}} href="/api/auth/logout">Logout</a></p>}
+        <div id="cardHolder">{cards && cards.cards.map(card => <Minicard id={card._id} title={card.title} note={card.note} />)}</div>
+        <a href="/api/auth/login">Login</a>
+        
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
     </div>
   )
 }
+
+
+/* export async function getStaticProps(){
+
+  const emailServerHost = process.env.EMAIL_SERVER_USER
+
+  return {
+    props: {
+      emailSH: emailServerHost
+    },
+  }
+} */
