@@ -4,11 +4,18 @@ import Head from 'next/head'
 import Nav from '../components/nav'
 import styles from '../styles/Home.module.css'
 import Minicard from '../components/card'
+import { useSelector } from 'react-redux'
+import { LinearProgress } from '@material-ui/core'
 
 export default function Home() {
 
   const {user, error, isLoading} = useUser()
   const [cards, setCards] = useState()
+  const [loadingCondition, setLoadingCondition] = useState(true)
+
+  const selectedCard = useSelector(state => state.selection)
+
+  console.log("user:", user)
 
 
   async function getCards(id){
@@ -21,6 +28,7 @@ export default function Home() {
       let data = await res.json()
       setCards(data)
       console.log("data", data)
+      setLoadingCondition(false)
     }
     catch(error) {
       console.log({error: error, user: user})
@@ -28,9 +36,22 @@ export default function Home() {
   }
 
   useEffect(() => {
-    user && getCards(user.name)
     console.log('cards:', cards)
-  }, [user])
+  }, [])
+  user && loadingCondition && getCards(user.name)
+
+  async function DeleteCard(){
+    const res = await fetch('/api/deleteSingle', {
+      method: 'Post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({id: selectedCard})
+    })
+    let deleted = await res.json()
+    console.log("deleted:", deleted)
+    user && getCards(user.name)
+  }
+
+  selectedCard && DeleteCard()
 
   if (isLoading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
@@ -48,6 +69,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+        {loadingCondition && <div style={{position: 'fixed', top: '0', width: '-webkit-fill-available' || '-moz-available'}}><LinearProgress /></div>}
         {user && <p>Welcome {user.name}! <a style={{color: 'blue'}} href="/api/auth/logout">Logout</a></p>}
         <div id="cardHolder">{cards && cards.cards.map(card => <Minicard id={card._id} title={card.title} note={card.note} />)}</div>
         <a href="/api/auth/login">Login</a>

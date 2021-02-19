@@ -4,6 +4,7 @@ import {useRouter} from 'next/router'
 import hljs from 'highlight.js'
 import MarkdownIt from 'markdown-it'
 import Nav from '../components/nav'
+import { LinearProgress } from '@material-ui/core'
 
 export default function Edit({pageTitle}) {
 
@@ -71,6 +72,7 @@ export default function Edit({pageTitle}) {
 
     return (
         <>
+            {loadingCondition && <div style={{position: 'fixed', top: '0', width: '-webkit-fill-available' || '-moz-available'}}><LinearProgress /></div>}
             <Nav />
             <div id="createCard">
                 <input value={title} onChange={event => setTitle(event.target.value)} id="createtopic" type="text" placeholder="title" name="title" />

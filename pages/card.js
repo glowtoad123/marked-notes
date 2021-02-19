@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react'
 import hljs from 'highlight.js'
 import MarkdownIt from 'markdown-it'
 import { useUser } from '@auth0/nextjs-auth0'
+import { LinearProgress } from '@material-ui/core'
 import Nav from '../components/nav'
+
 
 export default function Card({pageTitle}) {
     const [card, setCard] = useState('')
@@ -49,6 +51,7 @@ export default function Card({pageTitle}) {
 
     return (
         <>
+        {loadingCondition && <div style={{position: 'fixed', top: '0', width: '-webkit-fill-available' || '-moz-available'}}><LinearProgress /></div>}
         <Nav />
         <center>
             <div className="bigCard">
