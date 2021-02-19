@@ -4,3 +4,9 @@ export function setSelectedCard(nr) {
         payload: nr
     }
 }
+
+export function setLoadingNewPageCondition(){
+    return {
+        type: "setLoadingNewPageCondition"
+    }
+}

@@ -5,6 +5,8 @@ import hljs from 'highlight.js'
 import MarkdownIt from 'markdown-it'
 import Nav from '../components/nav'
 import { LinearProgress } from '@material-ui/core'
+import { useDispatch, useSelector } from 'react-redux'
+import { setLoadingNewPageCondition } from '../actions'
 
 export default function Edit({pageTitle}) {
 
@@ -15,6 +17,10 @@ export default function Edit({pageTitle}) {
     const {user} = useUser()
 
     const router = useRouter()
+
+    const newPageLoadingState = useSelector(state => state.newPage)
+
+    const dispatch = useDispatch()
 
     const md = new MarkdownIt({
         highlight: function (str, lang) {
@@ -50,7 +56,8 @@ export default function Edit({pageTitle}) {
     user && loadingCondition && getCard(user.name)
 
 
-    async function createCard(event){
+    async function updateCard(event){
+        dispatch(setLoadingNewPageCondition())
         const res = await fetch('/api/updateSingle', {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
@@ -73,12 +80,13 @@ export default function Edit({pageTitle}) {
     return (
         <>
             {loadingCondition && <div style={{position: 'fixed', top: '0', width: '-webkit-fill-available' || '-moz-available'}}><LinearProgress /></div>}
+            {newPageLoadingState && <div style={{position: 'fixed', top: '0', width: '-webkit-fill-available' || '-moz-available'}}><LinearProgress /></div>}
             <Nav />
             <div id="createCard">
                 <input value={title} onChange={event => setTitle(event.target.value)} id="createtopic" type="text" placeholder="title" name="title" />
                 <textarea value={note} onChange={event => setNote(event.target.value)} id="createnote" type="text" placeholder="note" name="note"></textarea>
                 <div dangerouslySetInnerHTML={{__html: md.render(note)}} id="noteOutput"></div>
-                <button onClick={createCard} type="submit" id="submit" class="btn btn-primary">Submit</button>
+                <button onClick={updateCard} type="submit" id="submit" class="btn btn-primary">Submit</button>
             </div>
             
         </>
