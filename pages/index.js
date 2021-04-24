@@ -53,8 +53,6 @@ export default function Home() {
   }
 
   selectedCard && DeleteCard()
-
-  if (isLoading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
 
 
@@ -62,14 +60,14 @@ export default function Home() {
   /* console.log("emailSH", emailSH) */
   
   return (
-    <div className={styles.container}>
+    <>
       <Nav />
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Marked Notes</title>
+        <link rel="icon" href="/markednotes.svg" />
       </Head>
 
-      <main className={styles.main}>
+      {/* <main className={styles.main}> */}
         {!user && <div style={{textAlign: 'center', padding: '10px', width: '80%', backgroundColor: '#F5F5F5', boxShadow: 'rgb(0 0 0 / 25%) 4px 4px 4px'}}><h1 id="getStarted">
           Have no study notes? Press the
           <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-door-closed-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -107,11 +105,15 @@ export default function Home() {
           Icon again.
           </h1>
           </div>}
+        
+        <br />
+        <br />
+        
         <div id="cardHolder">{cards && cards.cards.map(card => <Minicard id={card._id} title={card.title} note={card.note} />)}</div>
         <a href="/api/auth/login">Login</a>
         
-      </main>
-    </div>
+      {/* </main> */}
+    </>
   )
 }
 
