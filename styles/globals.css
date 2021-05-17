@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%232b4163' fill-opacity='0.74'%3E%3Cpath fill-rule='evenodd' d='M11 0l5 20H6l5-20zm42 31a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM0 72h40v4H0v-4zm0-8h31v4H0v-4zm20-16h20v4H20v-4zM0 56h40v4H0v-4zm63-25a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM53 41a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-30 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-28-8a5 5 0 0 0-10 0h10zm10 0a5 5 0 0 1-10 0h10zM56 5a5 5 0 0 0-10 0h10zm10 0a5 5 0 0 1-10 0h10zm-3 46a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM21 0l5 20H16l5-20zm43 64v-4h-4v4h-4v4h4v4h4v-4h4v-4h-4zM36 13h4v4h-4v-4zm4 4h4v4h-4v-4zm-4 4h4v4h-4v-4zm8-8h4v4h-4v-4z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 a {
@@ -11,9 +15,9 @@ a {
   text-decoration: none;
 }
 
-* {
+/* * {
   box-sizing: border-box;
-}
+} */
 
 .c1e2248de {
   background-color: green
@@ -29,26 +33,24 @@ a {
 
 /******************Home*********************************/
 
-body {
-  padding: 50px;
+/* body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: white;
-}
+} */
 
 #navbar {
-  /*background-color: #FFFFFF;*/
+  position: fixed;
+  right: 5px;
   background-color: #F5F5F5;
-  width: max-content;
-  padding: 20px;
+  height: 100%;
+  padding: 15px;
   border: none;
   border-radius: 12px;
-  position: fixed;
-  top: 40%;
-  right: 5px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   z-index: 3;
   display: flex;
   flex-direction: column;
+  width: max-content;
 }
 
 a {
@@ -65,8 +67,6 @@ svg {
   width: 32px;
   height: 32px;
   margin: auto;
-  margin-top: 15px;
-  margin-bottom: 15px;
   cursor: pointer
 }
 
@@ -78,15 +78,27 @@ svg:active {
   fill: #1f2e46
 }
 
+/* #cardHolder {
+  display: flex;
+  flex-direction: row;
+  overflow-wrap: normal;
+} */
+
 .card {
   border-radius: 12px;
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
   width: 30%;
   background-color: whitesmoke;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   justify-content: center;
   margin: 5px;
-  height: max-content
+  height: max-content;
+  transition: box-shadow 500ms;
+}
+
+.card:hover {
+  box-shadow: 4px 15px 15px rgba(0, 0, 0, 0.25);
 }
 
 .topic {
@@ -187,7 +199,15 @@ hr {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #253855;
+  background-color: #3B5A88;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #2b4163;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: #1f2e46;
 }
 
 ::-webkit-scrollbar-button {
@@ -197,13 +217,21 @@ hr {
 /*create***************************************************/
 
 #createCard {
-  background-color:#3B5A88;
+  background-color:rgba(59, 90, 136, 0.75);
+  backdrop-filter: blur(8px);
+  box-shadow: 4px 4px 4px rgb(0 0 0 / 25%);
   width: 50%;
   margin: auto;
-  border-radius: 12px 12px 12px 12px;
+  border-radius: 15px;
   border: none;
   padding: 0;
   height: max-content;
+  transition: box-shadow;
+  font-family: 'Roboto', sans-serif;
+}
+
+#createCard:hover {
+  box-shadow: 4px 15px 15px rgba(0, 0, 0, 0.25);
 }
 
 #createtopic {
@@ -245,6 +273,7 @@ hr {
   padding: 0;
   border: 0;
   margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
 }
 
 #noteOutput {
@@ -319,6 +348,10 @@ hr {
   width: -webkit-fill-available;
   width: -moz-available;
   text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
 }
 
 #QuestionCollection {
@@ -404,10 +437,26 @@ img {
 
 @media screen and (max-width: 1024px) {
   .card {
-    width: 90%
+    width: 90%;
+    margin: auto;
+    margin-bottom: 60px;
   }
 
   #createCard {
     width: 90%
+  }
+
+  #navbar {
+    width: -webkit-fill-available;
+    width: 100%;
+    flex-direction: row;
+    height: max-content;
+    right: auto;
+    bottom: 5px;
+  }
+
+  #cardHolder {
+    display: flex;
+    flex-direction: column;
   }
 }

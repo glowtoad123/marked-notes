@@ -90,7 +90,7 @@ export default function Home() {
         }
         {loadingCondition && <div style={{position: 'fixed', top: '0', width: '-webkit-fill-available' || '-moz-available'}}><LinearProgress /></div>}
         {newPageLoadingState && <div style={{position: 'fixed', top: '0', width: '-webkit-fill-available' || '-moz-available'}}><LinearProgress /></div>}
-        {user && <p style={{backgroundColor: '#253855', fontSize: '32px', position: 'fixed', top: '0', marginTop: '0', color: '#F5F5F5', width: 'max-content', padding: '10px', borderRadius: '12px'}}>Here are your notes {user.name}!</p>}
+        {user && <p style={{backgroundColor: '#253855', fontSize: '4vw', margin: 'auto', color: '#F5F5F5', textAlign: "center", width: 'max-content', padding: '10px', borderRadius: '12px'}}>Here are your notes {user.name}!</p>}
         {user && cards && cards.cards.length === 0 && <div style={{textAlign: 'center', padding: '10px', width: '80%', backgroundColor: '#F5F5F5', boxShadow: 'rgb(0 0 0 / 25%) 4px 4px 4px'}}><h1 id="getStarted">
           Have no study notes? Press the 
           <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

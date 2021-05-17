@@ -86,7 +86,7 @@ export default function Edit({pageTitle}) {
                 <input value={title} onChange={event => setTitle(event.target.value)} id="createtopic" type="text" placeholder="title" name="title" />
                 <textarea value={note} onChange={event => setNote(event.target.value)} id="createnote" type="text" placeholder="note" name="note"></textarea>
                 <div dangerouslySetInnerHTML={{__html: md.render(note)}} id="noteOutput"></div>
-                <button onClick={updateCard} type="submit" id="submit" class="btn btn-primary">Submit</button>
+                <button onClick={updateCard} type="submit" id="submit" class="btn btn-primary">Update</button>
             </div>
             
         </>
